@@ -1,0 +1,12 @@
+Window:                       Worker:
+
+Login                         Parth
+Admin                         Parth
+Main                          Umar
+Album                         Umar
+Tags                          Umar
+Copy/Move                     Parth
+Display                       Parth
+Presenation                   Parth
+Search                        Umar
+Search Results                Umar 
