@@ -2,11 +2,15 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.*;
+import view.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
 public class Main extends Application {
+	
+	public static User currentUser;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

@@ -8,6 +8,9 @@ public class User {
 	ArrayList<Album> albums;
 	int albumCount;
 	
+	// saved preset tags used on photos
+	String[] presetTags = {"location","people"};
+	
 	public User(String username) {
 		this.username = username;
 	}
@@ -38,6 +41,20 @@ public class User {
 	
 	public String getUsername() {
 		return username;
+	}
+	
+	public String[] getPresetTags() {
+		return this.presetTags;
+	}
+	
+	public void addPresetTag(String presetTag) {
+		String[] newString = new String[this.presetTags.length + 1];
+		for (int i=0;i<presetTags.length;i++) {
+			newString[i] = presetTags[i];
+		}
+		newString[newString.length-1] = presetTag;
+		
+		this.presetTags = newString;
 	}
 	
 	public ArrayList<Album> getAlbums(){

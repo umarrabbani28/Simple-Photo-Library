@@ -21,6 +21,7 @@ public class Tag {
 	public ArrayList<String> getValues() {return values;}
 	public String getSingleValue() {return singleValue;}
 	public boolean isSingleTag() {return isSingleValue;}
+	public void setSingleTag(boolean value) {this.isSingleValue = value;}
 	public String[] getSingleValueNames() {return singleValueNames;}
 	
 	/*//setters
