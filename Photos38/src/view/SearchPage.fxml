@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="36.0" layoutY="40.0" mnemonicParsing="false" text="Back" />
+      <Text layoutX="85.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Date range" />
+      <Text layoutX="339.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <TextField layoutX="99.0" layoutY="119.0" />
+      <Text layoutX="28.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" />
+      <TextField layoutX="99.0" layoutY="178.0" />
+      <Button layoutX="142.0" layoutY="250.0" mnemonicParsing="false" text="Search" />
+      <Text layoutX="400.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Date range" />
+      <Text layoutX="358.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 1" />
+      <TextField layoutX="386.0" layoutY="133.0" />
+      <TextField layoutX="386.0" layoutY="165.0" />
+      <Text layoutX="340.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" />
+      <Text layoutX="358.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 2" />
+      <Text layoutX="340.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="341.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" />
+      <TextField layoutX="391.0" layoutY="216.0" />
+      <TextField layoutX="391.0" layoutY="250.0" />
+      <Button layoutX="413.0" layoutY="340.0" mnemonicParsing="false" text="Search" />
+      <CheckBox layoutX="350.0" layoutY="297.0" mnemonicParsing="false" text="AND" />
+      <CheckBox layoutX="474.0" layoutY="297.0" mnemonicParsing="false" text="Or" />
+   </children>
+</AnchorPane>
