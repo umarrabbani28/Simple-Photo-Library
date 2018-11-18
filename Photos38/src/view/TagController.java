@@ -35,6 +35,7 @@ public class TagController {
 	
 	// calling scene
 	Scene caller;
+	TagController thisController = this;
 
 	// user logged in
 	User user;
@@ -107,12 +108,13 @@ public class TagController {
 					AnchorPane root = (AnchorPane) loader.load();
 					
 					AddTagController controller = loader.getController();
-					controller.initializeVars(mainStage.getScene(), user, selectedPhoto);
+					controller.initializeVars(mainStage.getScene(), user, selectedPhoto,thisController);
 					
 					controller.start(mainStage);
 					Scene addTagScene = new Scene(root,400,400);
 					
 					mainStage.setScene(addTagScene);
+					refreshList();
 					
 				} catch (IOException e) {
 					e.printStackTrace();

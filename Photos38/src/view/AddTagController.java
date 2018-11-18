@@ -37,6 +37,7 @@ public class AddTagController {
 	
 	// received from caller
 	Scene caller;
+	TagController callingController;
 	User user;
 	Photo selectedPhoto;
 	
@@ -174,6 +175,7 @@ public class AddTagController {
 					
 					selectedPhoto.addTag(newTag);
 					
+					callingController.refreshList();
 					mainStage.setScene(caller);
 				}
 			}
@@ -181,7 +183,7 @@ public class AddTagController {
 	}
 	
 	// sets up state like a constructor
-	public void initializeVars(Scene caller,User user,Photo selectedPhoto) {
-		this.caller = caller; this.user = user; this.selectedPhoto = selectedPhoto;
+	public void initializeVars(Scene caller,User user,Photo selectedPhoto,TagController callingController) {
+		this.caller = caller; this.user = user; this.selectedPhoto = selectedPhoto; this.callingController = callingController;
 	}
 }
