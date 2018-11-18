@@ -57,4 +57,12 @@ public class Photo {
 		album.addPhoto(this);
 	}
 	
+	public void moveTo(Album moveTo,Album moveFrom) {
+		this.albums.remove(moveFrom);
+		this.albums.add(moveTo);
+		moveTo.addPhoto(this);
+		moveFrom.deletePhoto(this);
+		
+	}
+	
 }
