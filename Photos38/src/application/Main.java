@@ -1,5 +1,7 @@
 package application;
 	
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.*;
@@ -26,5 +28,25 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	public static ArrayList<User> getUsers() {
+		return null;
+	}
+	
+	public static User searchUser(String username) {
+		return null;
+	}
+	
+	public static void addUser(User user) {
+		
+	}
+	
+	public static void delete(User user) {
+		
+	}
+	
+	public static boolean usernameExists(String username) {
+		return false;
 	}
 }
