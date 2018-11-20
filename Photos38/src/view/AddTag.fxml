@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="listView" layoutX="62.0" layoutY="197.0" prefHeight="67.0" prefWidth="290.0" AnchorPane.bottomAnchor="121.0" AnchorPane.topAnchor="197.0" />
-      <Label layoutX="178.0" layoutY="54.0" text="Create Tag" />
+      <Label layoutX="178.0" layoutY="25.0" text="Create Tag" />
       <Button id="delete" fx:id="cancel" layoutX="270.0" layoutY="340.0" mnemonicParsing="false" text="Cancel" />
       <Button id="add" fx:id="add" layoutX="80.0" layoutY="340.0" mnemonicParsing="false" text="Confirm" />
       <Label layoutX="62.0" layoutY="98.0" text="Tag Name" />

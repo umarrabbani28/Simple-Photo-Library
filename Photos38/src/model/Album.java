@@ -83,5 +83,35 @@ public class Album {
 		this.name = name;
 	}
 	
+	public Photo getNextPhoto(Photo photo) {
+		int index = photos.indexOf(photo);
+		
+		if (index == -1) {
+			return null;
+		}
+		
+		if (index < photos.size()-1) {
+			return photos.get(index+1);
+		} else if (index == photos.size()-1) {
+			return photos.get(0);
+		}
+		
+		return null;
+	}
+	
+	public Photo getPrevPhoto(Photo photo) {
+		int index = photos.indexOf(photo);
+		
+		if (index == -1)
+			return null;
+		
+		if (index > 0) {
+			return photos.get(index-1);
+		} else if (index == 0) {
+			return photos.get(photos.size()-1);
+		}
+		
+		return null;
+	}
 	
 }
