@@ -1,8 +1,12 @@
 package view;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.*;
 
-public class AdminController {
+public class AdminController implements Serializable{
 	
 	@FXML Button create;
 	@FXML Button delete;
@@ -30,11 +34,20 @@ public class AdminController {
 	@FXML Button logout;
 	@FXML ListView<User> listView;
 	
+	Session session;
+	Scene caller;
 	ObservableList<User> users;
 	
 	public void start(Stage mainStage) {
 		
-		users = FXCollections.observableArrayList(application.Main.getUsers());	
+		session = application.Main.session;
+		ArrayList<User> sessionUsers = session.getUsers();
+		users = FXCollections.observableArrayList();
+		
+		if (sessionUsers != null) {
+			users.setAll(sessionUsers);
+		}
+		
 		listView.setItems(users);
 		
 		create.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -45,10 +58,11 @@ public class AdminController {
 				
 				Optional<String> result = username.showAndWait();
 				if (result.isPresent()) {
-					if (application.Main.usernameExists(result.get())) {
+					if (session.usernameExists(result.get())) {
 						// show error message
+						System.out.println("exists");
 					} else {
-						application.Main.addUser(new User(result.get()));
+						session.addUser(new User(result.get()));
 						refresh();
 					}
 				}
@@ -73,9 +87,8 @@ public class AdminController {
 							listView.getSelectionModel().select(1);
 						}
 						
-						application.Main.delete(selected);
-						refresh();
-						
+						session.delete(selected);
+						refresh();					
 						
 						if (index == 0 && users.size() > 0) {
 							// System.out.println("test: " +
@@ -98,24 +111,38 @@ public class AdminController {
 			public void handle(MouseEvent event) {
 				// take user back to login page
 				// save user info 
+				
+				try {
+					session.logout(mainStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
-		logout.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		quit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				// save user info 
-				// close window
+				
+				try {
+					session.quit();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
-		});
-		
-		
+		});	
+	}
+	
+	public void initializeVars(Scene caller) {
+		this.caller = caller;
 	}
 	
 	public void refresh() {
-		users.setAll(application.Main.getUsers());
+		System.out.println(session.getUsers());
+		users.setAll(session.getUsers());
 		listView.setItems(users);
 	}
-	
-	
 }

@@ -1,8 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tag {
+public class Tag implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name;
 	ArrayList<String> values;
 	static final String[] singleValueNames = {"location"};
@@ -11,6 +16,7 @@ public class Tag {
 	
 	public Tag(String name, ArrayList<String> values) {
 		this.name = name; this.values = values; this.isSingleValue = false;
+		values = new ArrayList<>();
 	}
 	
 	public Tag(String name, String singleValue) {

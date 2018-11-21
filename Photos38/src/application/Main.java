@@ -1,52 +1,65 @@
 package application;
 	
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import model.*;
 import view.*;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class Main extends Application {
+public class Main extends Application implements Serializable {
 	
-	public static User currentUser;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// main session of the login
+	public static Session session;
+	
 	@Override
 	public void start(Stage primaryStage) {
+		
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
+			session = Session.readApp();
+			System.out.println(session.getUsers());
+		} catch (FileNotFoundException e) {
+			System.out.println("came here");
+			session = new Session();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/LoginPage.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			
+			LoginController controller = loader.getController();
+			
+			controller.start(primaryStage);
+			Scene loginScene = new Scene(root,400,400);
+			
+			primaryStage.setScene(loginScene);
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		launch(args);
-	}
-	
-	public static ArrayList<User> getUsers() {
-		return null;
-	}
-	
-	public static User searchUser(String username) {
-		return null;
-	}
-	
-	public static void addUser(User user) {
-		
-	}
-	
-	public static void delete(User user) {
-		
-	}
-	
-	public static boolean usernameExists(String username) {
-		return false;
 	}
 }

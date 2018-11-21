@@ -1,6 +1,9 @@
 package view;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -16,8 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.*;
 
-public class MainPageController {
+public class MainPageController implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FXML Button create;
 	@FXML Button search;
 	@FXML Button rename;
@@ -28,10 +35,15 @@ public class MainPageController {
 	
 	User user;
 	ObservableList<Album> albums;
+	Session session;
 	
 	public void start(Stage mainStage) {
 				
-		albums = FXCollections.observableArrayList(user.getAlbums());
+		session = application.Main.session;
+		ArrayList<Album> userAlbums = user.getAlbums();
+		albums = FXCollections.observableArrayList();
+		if (userAlbums != null)
+			albums.setAll(userAlbums);
 		
 		listView.setItems(albums);
 		
@@ -49,8 +61,7 @@ public class MainPageController {
 						user.createAlbum(result.get());
 						refresh();
 					}
-				}
-				
+				}	
 			}
 		});
 		
@@ -59,6 +70,12 @@ public class MainPageController {
 			public void handle(MouseEvent event) {
 				// take user back to login page
 				// save updates in json to file
+				try {
+					session.logout(mainStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		});
@@ -68,7 +85,12 @@ public class MainPageController {
 			public void handle(MouseEvent event) {
 				// save updates in json to file
 				// close window
-				
+				try {
+					session.quit();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -76,8 +98,7 @@ public class MainPageController {
 			@Override
 			public void handle(MouseEvent event) {
 				// take user to search page
-				
-				
+			
 				try {
 					FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(getClass().getResource("/view/SearchPage.fxml"));
@@ -95,8 +116,6 @@ public class MainPageController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
 			}
 		});
 		
@@ -161,6 +180,10 @@ public class MainPageController {
 		});
 		
 		
+	}
+	
+	public void initializeVars(User user) {
+		this.user = user;
 	}
 	
 	public void refresh() {

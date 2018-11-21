@@ -3,6 +3,7 @@ package view;
 import model.*;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -20,8 +21,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class TagController {
+public class TagController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FXML Button back;
 	@FXML Button add;
 	@FXML Button delete;

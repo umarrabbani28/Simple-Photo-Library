@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String username;
 	ArrayList<Album> albums;
 	int albumCount;
@@ -13,6 +18,7 @@ public class User {
 	
 	public User(String username) {
 		this.username = username;
+		albums = new ArrayList<>();
 	}
 	
 	public boolean createAlbum(String albumName) {
@@ -71,5 +77,9 @@ public class User {
 				return true;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		return username;
 	}
 }

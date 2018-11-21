@@ -1,10 +1,15 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Photo {
+public class Photo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	BufferedImage image;
 	String location;
 	Date date;

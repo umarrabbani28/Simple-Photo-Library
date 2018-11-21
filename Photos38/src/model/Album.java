@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Album {
+public class Album implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name;
 	Date earliest;
 	Date latest;
@@ -112,6 +117,13 @@ public class Album {
 		}
 		
 		return null;
+	}
+	
+	public String toString() {
+		if (earliest == null)
+			return name+"     "+photoCount+"     ";
+		return name+"     "+photoCount+"     "+earliest.toString()+" - "+latest.toString();
+				
 	}
 	
 }
