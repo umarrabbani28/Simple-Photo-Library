@@ -50,6 +50,9 @@ public class AddTagController implements Serializable{
 	int numValues;
 	
 	public void start(Stage mainStage) {
+		
+		listView.setStyle("-fx-font-size: 1.5em ;");
+		comboBox.setStyle("-fx-font-size: 1.5em ;");
 				
 		ObservableList<String> values = FXCollections.observableArrayList();
 		listView.setItems(values);

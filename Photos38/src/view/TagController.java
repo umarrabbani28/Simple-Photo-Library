@@ -4,6 +4,7 @@ import model.*;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -47,10 +48,15 @@ public class TagController implements Serializable {
 	
 	public void start(Stage mainStage) {
 		
+		listView.setStyle("-fx-font-size: 1.5em ;");
+		
 		// make obserable list of tags from selected photo tags
 		// set listview to observable list
+		ArrayList<Tag> photoTags = selectedPhoto.getTags();	
+		tagList = FXCollections.observableArrayList();
+		if (photoTags != null)
+			tagList.setAll(photoTags);
 		
-		tagList = FXCollections.observableArrayList(selectedPhoto.getTags());
 		listView.setItems(tagList);
 		
 		// takes user back to album page
@@ -116,7 +122,7 @@ public class TagController implements Serializable {
 					controller.initializeVars(mainStage.getScene(), user, selectedPhoto,thisController);
 					
 					controller.start(mainStage);
-					Scene addTagScene = new Scene(root,400,400);
+					Scene addTagScene = new Scene(root,800,800);
 					
 					mainStage.setScene(addTagScene);
 					refreshList();

@@ -28,6 +28,10 @@ import model.*;
 
 public class AdminController implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FXML Button create;
 	@FXML Button delete;
 	@FXML Button quit;
@@ -40,6 +44,8 @@ public class AdminController implements Serializable{
 	
 	public void start(Stage mainStage) {
 		
+		listView.setStyle("-fx-font-size: 1.5em ;");
+
 		session = application.Main.session;
 		ArrayList<User> sessionUsers = session.getUsers();
 		users = FXCollections.observableArrayList();

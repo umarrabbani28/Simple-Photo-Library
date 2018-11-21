@@ -53,7 +53,7 @@ public class LoginController implements Serializable {
 								controller.initializeVars(mainStage.getScene());
 								
 								controller.start(mainStage);
-								Scene mainPageScene = new Scene(root,400,400);
+								Scene mainPageScene = new Scene(root,800,800);
 								
 								mainStage.setScene(mainPageScene);
 								
@@ -88,7 +88,7 @@ public class LoginController implements Serializable {
 								controller.initializeVars(session.getCurrUser());
 								
 								controller.start(mainStage);
-								Scene mainPageScene = new Scene(root,400,400);
+								Scene mainPageScene = new Scene(root,800,800);
 								
 								mainStage.setScene(mainPageScene);
 								

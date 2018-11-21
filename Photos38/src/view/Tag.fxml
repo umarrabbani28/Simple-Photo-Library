@@ -4,13 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TagController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TagController">
    <children>
-      <ListView fx:id="listView" layoutX="62.0" layoutY="68.0" prefHeight="196.0" prefWidth="290.0" AnchorPane.bottomAnchor="121.0" AnchorPane.topAnchor="68.0" />
-      <Label layoutX="193.0" layoutY="51.0" text="Tags" />
-      <Button fx:id="back" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
-      <Button id="delete" fx:id="delete" layoutX="270.0" layoutY="330.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="add" layoutX="80.0" layoutY="330.0" mnemonicParsing="false" text="Add" />
+      <ListView fx:id="listView" layoutX="198.0" layoutY="192.0" prefHeight="416.0" prefWidth="405.0" AnchorPane.bottomAnchor="192.0" AnchorPane.topAnchor="192.0" />
+      <Label layoutX="375.0" layoutY="147.0" text="Tags">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button fx:id="back" layoutX="35.0" layoutY="37.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="129.0" text="Back">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button id="delete" fx:id="delete" layoutX="539.0" layoutY="679.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="129.0" text="Delete">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button fx:id="add" layoutX="134.0" layoutY="679.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="129.0" text="Add">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
    </children>
 </AnchorPane>

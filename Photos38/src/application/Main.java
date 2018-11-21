@@ -49,7 +49,7 @@ public class Main extends Application implements Serializable {
 			LoginController controller = loader.getController();
 			
 			controller.start(primaryStage);
-			Scene loginScene = new Scene(root,400,400);
+			Scene loginScene = new Scene(root,800,800);
 			
 			primaryStage.setScene(loginScene);
 			primaryStage.show();

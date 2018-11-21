@@ -23,6 +23,10 @@ import javafx.stage.Stage;
 
 public class AlbumPageController implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FXML Button Home;
 	@FXML Button Add;
 	@FXML Button Remove;
@@ -30,6 +34,7 @@ public class AlbumPageController implements Serializable{
 	@FXML Button Copy;
 	@FXML Button Tags;
 	@FXML Button Presentation;
+	@FXML Button Caption;
 	// photo who's tags user is looking at
 	Album selectedAlbum;	
 	Photo selectedPhoto;
@@ -56,6 +61,10 @@ public class AlbumPageController implements Serializable{
 
 			@Override
 			public void handle(MouseEvent event) {
+				// open directory to select image file
+				// create photo object, set image to file, set location to file location etc, set photo.album to current album
+				// album.addphoto(new photo object)
+				// refresh
 				
 			}
 			
@@ -64,6 +73,9 @@ public class AlbumPageController implements Serializable{
 		Remove.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				// get selected photo
+				// delete it from the album
+				// refresh
 				
 			}
 		});
@@ -75,11 +87,12 @@ public class AlbumPageController implements Serializable{
 					loader.setLocation(getClass().getResource("/view/Tag.fxml"));
 					AnchorPane root = (AnchorPane) loader.load();
 					
+					
 					TagController controller = loader.getController();
 					controller.initializeVars(mainStage.getScene(), user, selectedPhoto);
 					
 					controller.start(mainStage);
-					Scene TagScene = new Scene(root,400,400);
+					Scene TagScene = new Scene(root,800,800);
 					
 					mainStage.setScene(TagScene);					
 				} catch (IOException e) {
@@ -99,7 +112,7 @@ public class AlbumPageController implements Serializable{
 					controller.initializeVars(mainStage.getScene(), user, selectedPhoto,false);
 					
 					controller.start(mainStage);
-					Scene movecopyScene = new Scene(root,400,400);
+					Scene movecopyScene = new Scene(root,800,800);
 					
 					mainStage.setScene(movecopyScene);
 					
@@ -120,7 +133,7 @@ public class AlbumPageController implements Serializable{
 					controller.initializeVars(mainStage.getScene(), user, selectedPhoto,true);
 					
 					controller.start(mainStage);
-					Scene movecopyScene = new Scene(root,400,400);
+					Scene movecopyScene = new Scene(root,800,800);
 					
 					mainStage.setScene(movecopyScene);
 					
@@ -137,13 +150,13 @@ public class AlbumPageController implements Serializable{
 					loader.setLocation(getClass().getResource("/view/Presentation.fxml"));
 					AnchorPane root = (AnchorPane) loader.load();
 					
-					presentationController controller = loader.getController();
+					PresentationController controller = loader.getController();
 					controller.intializeVars(mainStage.getScene(), selectedPhoto,selectedAlbum);
 					
 					controller.start(mainStage);
-					Scene movecopyScene = new Scene(root,400,400);
+					Scene presentationScene = new Scene(root,800,800);
 					
-					mainStage.setScene(movecopyScene);
+					mainStage.setScene(presentationScene);
 					
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -152,7 +165,7 @@ public class AlbumPageController implements Serializable{
 		});
 	}
 
-	public void intializeVars(Scene caller,User user,Photo selectedPhoto) {
-		this.caller = caller; this.user = user; this.selectedPhoto = selectedPhoto;
+	public void initializeVars(Scene caller,User user, Album selectedAlbum) {
+		this.caller = caller; this.user = user;this.selectedAlbum = selectedAlbum;
 	}
 }

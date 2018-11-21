@@ -5,20 +5,48 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTagController">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTagController">
    <children>
-      <ListView fx:id="listView" layoutX="62.0" layoutY="197.0" prefHeight="67.0" prefWidth="290.0" AnchorPane.bottomAnchor="121.0" AnchorPane.topAnchor="197.0" />
-      <Label layoutX="178.0" layoutY="25.0" text="Create Tag" />
-      <Button id="delete" fx:id="cancel" layoutX="270.0" layoutY="340.0" mnemonicParsing="false" text="Cancel" />
-      <Button id="add" fx:id="add" layoutX="80.0" layoutY="340.0" mnemonicParsing="false" text="Confirm" />
-      <Label layoutX="62.0" layoutY="98.0" text="Tag Name" />
-      <ComboBox fx:id="comboBox" layoutX="195.0" layoutY="94.0" prefWidth="150.0" promptText="Choose a name" />
-      <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="130.0" text="Tag Value(s) for tag:" />
-      <Button id="add" fx:id="addValue" layoutX="244.0" layoutY="283.0" mnemonicParsing="false" text="Add" />
-      <Button id="delete" fx:id="deleteValue" layoutX="296.0" layoutY="283.0" mnemonicParsing="false" text="Delete" />
-      <Button id="delete" fx:id="newName" layoutX="352.0" layoutY="94.0" mnemonicParsing="false" text="New" />
-      <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="192.0" layoutY="134.0" prefHeight="31.0" prefWidth="172.0" text="None selected" textFill="#1e09e1" />
+      <ListView fx:id="listView" layoutX="183.0" layoutY="279.0" prefHeight="272.0" prefWidth="457.0" AnchorPane.bottomAnchor="249.0" AnchorPane.topAnchor="279.0" />
+      <Label layoutX="383.0" layoutY="30.0" text="Create Tag">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button id="delete" fx:id="cancel" layoutX="579.0" layoutY="691.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Cancel">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button id="add" fx:id="add" layoutX="122.0" layoutY="691.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Confirm">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Label layoutX="129.0" layoutY="143.0" text="Tag Name">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <ComboBox fx:id="comboBox" layoutX="273.0" layoutY="132.0" prefHeight="57.0" prefWidth="197.0" promptText="Choose a name" />
+      <Label layoutX="183.0" layoutY="223.0" prefHeight="35.0" prefWidth="248.0" text="Tag Value(s) for tag:">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button id="add" fx:id="addValue" layoutX="379.0" layoutY="572.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Add">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button id="delete" fx:id="deleteValue" layoutX="519.0" layoutY="572.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Delete">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button id="delete" fx:id="newName" layoutX="556.0" layoutY="132.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="New">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="470.0" layoutY="223.0" prefHeight="31.0" prefWidth="172.0" text="None selected" textFill="#1e09e1">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
       <Label fx:id="error" contentDisplay="CENTER" layoutX="76.0" layoutY="369.0" prefHeight="17.0" prefWidth="248.0" textFill="#df0b0b" />
       <Label fx:id="error2" contentDisplay="CENTER" layoutX="63.0" layoutY="176.0" prefHeight="17.0" prefWidth="290.0" textFill="#df0b0b" />
    </children>

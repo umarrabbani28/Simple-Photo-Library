@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -31,7 +32,12 @@ public class MainPageController implements Serializable{
 	@FXML Button quit;
 	@FXML Button logout;
 	@FXML Button delete;
-	@FXML ListView<Album> listView;
+	@FXML TableView<Album> tableView;
+	@FXML TableColumn<Album,String> nameColumn;
+	@FXML TableColumn<Album,String> countColumn;
+	@FXML TableColumn<Album,String> dateColumn;
+	@FXML TableColumn<Album,String> from;
+	@FXML TableColumn<Album,String> to;
 	
 	User user;
 	ObservableList<Album> albums;
@@ -39,13 +45,50 @@ public class MainPageController implements Serializable{
 	
 	public void start(Stage mainStage) {
 				
+		tableView.setStyle("-fx-cell-size: 50px;");
+		tableView.setStyle("-fx-font-size: 1.5em;");
+		
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		countColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
+		from.setCellValueFactory(new PropertyValueFactory<>("earliest"));
+		to.setCellValueFactory(new PropertyValueFactory<>("latest"));
+		
 		session = application.Main.session;
 		ArrayList<Album> userAlbums = user.getAlbums();
 		albums = FXCollections.observableArrayList();
 		if (userAlbums != null)
 			albums.setAll(userAlbums);
 		
-		listView.setItems(albums);
+		tableView.setItems(albums);
+		
+		tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getClickCount() == 2) {
+					try {
+						Album selected = tableView.getSelectionModel().getSelectedItem();
+						
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource("/view/AlbumPage.fxml"));
+						AnchorPane root;
+						root = (AnchorPane) loader.load();
+
+						AlbumPageController controller = loader.getController();
+						controller.initializeVars(mainStage.getScene(), user, selected);
+						
+						controller.start(mainStage);
+						Scene searchPageScene = new Scene(root,800,800);
+						
+						mainStage.setScene(searchPageScene);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}		
+					
+				}
+				
+			}
+		});
 		
 		create.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -122,7 +165,7 @@ public class MainPageController implements Serializable{
 		rename.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Album selected = listView.getSelectionModel().getSelectedItem();
+				Album selected = tableView.getSelectionModel().getSelectedItem();
 
 				TextInputDialog newName = new TextInputDialog();
 				newName.setHeaderText("Enter new album name");
@@ -145,18 +188,18 @@ public class MainPageController implements Serializable{
 			@Override
 			public void handle(MouseEvent event) {
 				
-				Album selected = listView.getSelectionModel().getSelectedItem();
+				Album selected = tableView.getSelectionModel().getSelectedItem();
 				if (selected != null) {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Delete Value");
-					alert.setHeaderText("Delete value:" + listView.getSelectionModel().getSelectedItem());
+					alert.setHeaderText("Delete value:" + tableView.getSelectionModel().getSelectedItem());
 					alert.setContentText("Are you sure?");
 
 					Optional<ButtonType> confirmation = alert.showAndWait();
 					if (confirmation.get() == ButtonType.OK) {
-						int index = listView.getSelectionModel().getSelectedIndex();
+						int index = tableView.getSelectionModel().getSelectedIndex();
 						if (index == 0) {
-							listView.getSelectionModel().select(1);
+							tableView.getSelectionModel().select(1);
 						}
 						
 						user.deleteAlbum(selected);
@@ -171,7 +214,7 @@ public class MainPageController implements Serializable{
 						} else if (index == albums.size()) {
 							// listView.getSelectionModel().select(listView.getSelectionModel().getSelectedIndex());
 						} else {
-							listView.getSelectionModel().select(listView.getSelectionModel().getSelectedIndex() + 1);
+							tableView.getSelectionModel().select(tableView.getSelectionModel().getSelectedIndex() + 1);
 
 						}
 					}
@@ -188,7 +231,7 @@ public class MainPageController implements Serializable{
 	
 	public void refresh() {
 		albums.setAll(user.getAlbums());
-		listView.setItems(albums);
+		tableView.setItems(albums);
 	}
 	
 }
