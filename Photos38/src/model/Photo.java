@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javafx.scene.image.Image;
+
 public class Photo {
-	BufferedImage image;
+	Image image;
 	String location;
 	Date date;
 	String caption;
@@ -13,7 +15,7 @@ public class Photo {
 	ArrayList<Album> albums;
 	ArrayList<Tag> tags;
 	
-	public Photo(BufferedImage image,Date date,String location,Album album,String caption) {
+	public Photo(Image image,Date date,String location,Album album,String caption) {
 		this.image = image; this.location = location; this.date = date; this.albums.set(0, album); this.caption = caption;
 	}
 	
@@ -45,7 +47,7 @@ public class Photo {
 	public String getCaption() {return caption;}
 	public String getLocation() {return location;}
 	public ArrayList<Tag> getTags(){return tags;}
-	public BufferedImage getImage() {return image;}
+	public Image getImage() {return image;}
 	
 	//setters
 	public void reCaption(String caption) {

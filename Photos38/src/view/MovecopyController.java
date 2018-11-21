@@ -56,4 +56,7 @@ public class MovecopyController {
 		});
 		
 	}
+	public void initializeVars(Scene caller,User user,Photo selectedPhoto, Boolean isCopy) {
+		this.caller = caller; this.user = user; this.selectedPhoto = selectedPhoto;this.isCopy = isCopy;
+	}
 }

@@ -48,7 +48,7 @@ public class DisplayPageController {
 		listView.setItems(tagList);
 		caption.setText(selectedPhoto.getCaption());
 		caption.setText(selectedPhoto.getCaption());
-		//ImageView.setImage(selectedPhoto.getImage());//fix
+		image.setImage(selectedPhoto.getImage());
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override

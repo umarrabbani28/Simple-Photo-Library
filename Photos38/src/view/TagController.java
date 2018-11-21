@@ -128,7 +128,7 @@ public class TagController {
 		listView.setItems(tagList);
 	}
 
-	public void intializeVars(Scene caller,User user,Photo selectedPhoto) {
+	public void initializeVars(Scene caller,User user,Photo selectedPhoto) {
 		this.caller = caller; this.user = user; this.selectedPhoto = selectedPhoto;
 	}
 }

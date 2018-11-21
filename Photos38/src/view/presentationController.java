@@ -41,7 +41,7 @@ public class presentationController {
 	User user;
 	Album selectedAlbum;
 	public void start(Stage mainStage) {		
-		//ImageView.setImage(selectedPhoto.getImage());//fix
+		image.setImage(selectedPhoto.getImage());
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -55,14 +55,14 @@ public class presentationController {
 			public void handle(MouseEvent event) {
 				
 				selectedPhoto = selectedAlbum.getNextPhoto(selectedPhoto);
-				//ImageView.setImage(selectedPhoto.getImage());
+				image.setImage(selectedPhoto.getImage());
 			}
 		});
 		previous.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				selectedPhoto = selectedAlbum.getPrevPhoto(selectedPhoto);
-				//ImageView.setImage(selectedPhoto.getImage());
+				image.setImage(selectedPhoto.getImage());
 			}
 		});
 	}
