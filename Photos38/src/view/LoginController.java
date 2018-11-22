@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -39,7 +40,10 @@ public class LoginController implements Serializable {
 				// search saved json for matching username
 				String entered = username.getText();
 				if (entered == null) {
-					// show error message
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Name Error");
+					alert.setHeaderText("Username must be entered!");
+					alert.showAndWait();
 				} else {
 					
 					if (entered.equals("admin")|| entered.equals("Admin")) {
@@ -65,10 +69,8 @@ public class LoginController implements Serializable {
 							} catch (IOException e) {
 							}
 							
-					} else if (entered.equals("stock") || entered.equals("Stock")) {
-						// do stock stuff
-						
-					} else {
+					}
+					 else {
 						// regular login
 						// search for user with that username
 						// load their data
@@ -77,7 +79,10 @@ public class LoginController implements Serializable {
 						
 						User curr = session.getUser(entered);
 						if (curr == null) {
-							// user not found, show error message
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Name Error");
+							alert.setHeaderText("Username not found!");
+							alert.showAndWait();
 						} else {
 							session.setUser(curr);
 							session.setAdmin(false);
