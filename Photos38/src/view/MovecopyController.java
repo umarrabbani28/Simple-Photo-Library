@@ -34,6 +34,10 @@ public class MovecopyController {
 	Album selectedAlbum;
 	AlbumPageController controller;
 	
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 		if(isCopy == true) {
 			move.setText("Copy");
@@ -46,7 +50,7 @@ public class MovecopyController {
 		ArrayList<Album> photosAlbums = selectedPhoto.getAlbums();
 		ArrayList<Album> userAlbums = user.getAlbums();
 		
-		userAlbums.removeAll(photosAlbums);
+	//	userAlbums.removeAll(photosAlbums);
 		if (userAlbums!=null) {
 			albums.addAll(userAlbums);
 		}
@@ -56,8 +60,8 @@ public class MovecopyController {
 		
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		countColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
-		from.setCellValueFactory(new PropertyValueFactory<>("earliest"));
-		to.setCellValueFactory(new PropertyValueFactory<>("latest"));
+		from.setCellValueFactory(new PropertyValueFactory<>("earliestString"));
+		to.setCellValueFactory(new PropertyValueFactory<>("latestString"));
 		
 		tableView.setItems(albums);
 		

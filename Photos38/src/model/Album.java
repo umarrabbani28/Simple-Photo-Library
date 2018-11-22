@@ -1,16 +1,20 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * class representing a photo album
+ * @author Umar Rabbani
+ * @author Parth Desai
+ */
 public class Album implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	String name;
 	LocalDateTime earliest;
@@ -20,15 +24,25 @@ public class Album implements Serializable{
 	int photoCount;
 	User owner;
 	ArrayList<Photo> photos;
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 	
+	/**
+	 * constructor
+	 * @param name This is the name of the album
+	 * @param owner This is the owner of the album
+	 */
 	public Album(String name, User owner) {
 		this.name = name; this.owner = owner;
 		photos = new ArrayList<>();
 	}
 	
+	/**
+	 * adds a photo object to the album
+	 * @param photo the photo to be added
+	 * @return void 
+	 */
 	public void addPhoto(Photo photo) {
 		LocalDateTime photoDate = photo.getDate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
 		if (earliest == null) {
 			earliest = photoDate;
 			earliestString = earliest.format(formatter);
@@ -50,8 +64,15 @@ public class Album implements Serializable{
 		photoCount++;
 	}
 	
+	/**
+	 * deletes a photo from the album
+	 * @param photo the photo to be deleted
+	 * @return void 
+	 */
 	public void deletePhoto(Photo photo) {
 		LocalDateTime photoDate = photo.getDate();
+	
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
 		if (photos.size() == 1) {
 			earliest = null;
 			latest = null;
@@ -82,39 +103,69 @@ public class Album implements Serializable{
 	}
 	
 	// getters
+	/**
+	 * returns the album name
+	 * @return String this is the album name 
+	 */
 	public String getName() {
 		return name;
 	}
-	
+	/**
+	 * returns the ealiest photo in the album by date taken
+	 * @return LocalDateTime this is the earliest date in the album
+	 */
 	public LocalDateTime getEarliest() {
 		return earliest;
 	}
-	
+	/**
+	 * returns the ealiest photo with date in string format
+	 * @return String this is the earliest date in the album
+	 */
 	public String  getEarliestString() {
 		return earliestString;
 	}
-	
+	/**
+	 * returns the latest photo in the album by date taken
+	 * @return LocalDateTime this is the latest date in the album
+	 */
 	public LocalDateTime getLatest() {
 		return latest;
 	}
-	
+
+	/**
+	 * returns the latest photo with date in string format
+	 * @return LocalDateTime this is the latest date in the album
+	 */ 
 	public String getLatestString() {
 		return latestString;
 	}
-	
+	/**
+	 * returns the amount of photos in the album
+	 * @return LocalDateTime this is the amount of photos
+	 */
 	public int getPhotoCount() {
 		return photoCount;
 	}
-	
+	/**
+	 * returns the photos
+	 * @return ArrayList<Photo> this holds the photos
+	 */
 	public ArrayList<Photo> getPhotos(){
 		return photos;
 	}
-	
+	/**
+	 * returns the owner
+	 * @return User this is the owner
+	 */
 	public User getOwner() {
 		return owner;
 	}
 	
 	//setters
+	/**
+	 * sets the name of the album
+	 * @return User this is the owner
+	 */
 	void setName(String name) {
 		this.name = name;
 	}

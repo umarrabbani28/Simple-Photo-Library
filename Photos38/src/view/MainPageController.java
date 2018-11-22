@@ -44,6 +44,10 @@ public class MainPageController implements Serializable{
 	Session session;
 	MainPageController thisController = this;
 	
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 				
 		tableView.setStyle("-fx-cell-size: 50px;");
@@ -83,7 +87,6 @@ public class MainPageController implements Serializable{
 						mainStage.setScene(searchPageScene);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}		
 					
 				}
@@ -100,7 +103,11 @@ public class MainPageController implements Serializable{
 				Optional<String> result = albumName.showAndWait();
 				if (result.isPresent()) {
 					if (user.albumNameExists(result.get())) {
-						// set error text to tell user that album name already exists
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Name Error");
+						alert.setHeaderText("Album name already exists!");
+
+						alert.showAndWait();
 					} else {
 						user.createAlbum(result.get());
 						refresh();
@@ -118,7 +125,6 @@ public class MainPageController implements Serializable{
 					session.logout(mainStage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				
 			}
@@ -133,7 +139,6 @@ public class MainPageController implements Serializable{
 					session.quit();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		});
@@ -150,7 +155,7 @@ public class MainPageController implements Serializable{
 					root = (AnchorPane) loader.load();
 
 					SearchPageController controller = loader.getController();
-					controller.initializeVars(mainStage.getScene(), user);
+					controller.initializeVars(mainStage.getScene(), user, thisController);
 					
 					controller.start(mainStage);
 					Scene searchPageScene = new Scene(root,800,800);
@@ -158,7 +163,6 @@ public class MainPageController implements Serializable{
 					mainStage.setScene(searchPageScene);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		});
@@ -174,7 +178,10 @@ public class MainPageController implements Serializable{
 				Optional<String> result = newName.showAndWait();
 				if (result.isPresent()) {
 					if (user.albumNameExists(result.get())) {
-						// show error text
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Name Error");
+						alert.setHeaderText("Album name already exists!");
+						alert.showAndWait();
 					} else {
 						if (selected != null) {
 							user.rename(selected, result.get());
@@ -226,19 +233,22 @@ public class MainPageController implements Serializable{
 		
 	}
 	
+	/**
+	 * intializes the variables used in the controller
+	 * @param user This is the user that is used throughout the controller
+	 * @return void 
+	 */
 	public void initializeVars(User user) {
 		this.user = user;
 	}
 	
 	public void refresh() {
-		System.out.println("called");
 		ArrayList<Album> userAlbums = user.getAlbums();
 		albums = FXCollections.observableArrayList();
 		if (userAlbums != null)
 			albums.setAll(userAlbums);
 		
 		tableView.setItems(albums);
-		System.out.println(userAlbums);
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		countColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
 		from.setCellValueFactory(new PropertyValueFactory<>("earliestString"));

@@ -16,10 +16,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * The main class that runs the game!
+ * 
+ * @author Umar Rabbani
+ * @author Parth Desai
+ * @version 1.0
+ */
 public class Main extends Application implements Serializable {
 	
 	/**
-	 * 
+	 * forced default serial number to help with serialization
 	 */
 	private static final long serialVersionUID = 1L;
 	// main session of the login
@@ -30,14 +37,10 @@ public class Main extends Application implements Serializable {
 		
 		try {
 			session = Session.readApp();
-			System.out.println(session.getUsers());
 		} catch (FileNotFoundException e) {
-			System.out.println("came here");
 			session = new Session();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		
 		try {
@@ -55,10 +58,12 @@ public class Main extends Application implements Serializable {
 			primaryStage.show();
 			
 		} catch(Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * starts the application
+	 */
 	public static void main(String[] args) {		
 		launch(args);
 	}

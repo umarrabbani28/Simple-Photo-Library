@@ -24,6 +24,10 @@ public class LoginController implements Serializable {
 	
 	Session session;
 	
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 		
 		session = application.Main.session;
@@ -59,7 +63,6 @@ public class LoginController implements Serializable {
 								
 								
 							} catch (IOException e) {
-								e.printStackTrace();
 							}
 							
 					} else if (entered.equals("stock") || entered.equals("Stock")) {
@@ -93,7 +96,6 @@ public class LoginController implements Serializable {
 								mainStage.setScene(mainPageScene);
 								
 							} catch (IOException e) {
-								e.printStackTrace();
 							}
 						}
 						
@@ -105,6 +107,12 @@ public class LoginController implements Serializable {
 		
 	}
 	
+	/**
+	 * intializes the variables used in the controller
+	 * @param session This is the session object used 
+	 * @param selectedPhoto This is the photo that is used throughout the controller
+	 * @return void 
+	 */
 	public void intializeVars(Session session) {
 		this.session = session;
 	}

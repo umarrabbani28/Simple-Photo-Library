@@ -66,7 +66,10 @@ public class AdminController implements Serializable{
 				if (result.isPresent()) {
 					if (session.usernameExists(result.get())) {
 						// show error message
-						System.out.println("exists");
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Name Error");
+						alert.setHeaderText("Username already exists!");
+						alert.showAndWait();
 					} else {
 						session.addUser(new User(result.get()));
 						refresh();
@@ -122,7 +125,6 @@ public class AdminController implements Serializable{
 					session.logout(mainStage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		});
@@ -135,7 +137,7 @@ public class AdminController implements Serializable{
 					session.quit();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					 
 				}
 				
 			}
@@ -147,7 +149,6 @@ public class AdminController implements Serializable{
 	}
 	
 	public void refresh() {
-		System.out.println(session.getUsers());
 		users.setAll(session.getUsers());
 		listView.setItems(users);
 	}

@@ -93,6 +93,11 @@ public class User implements Serializable{
 			}
 		}
 		
+		Set<Photo> noDuplicates = new HashSet<>();
+		noDuplicates.addAll(results);
+		results.clear();
+		results.addAll(noDuplicates);
+		
 		return results;
 	}
 	
@@ -111,6 +116,11 @@ public class User implements Serializable{
 				}
 			}
 		}
+		
+		Set<Photo> noDuplicates = new HashSet<>();
+		noDuplicates.addAll(results);
+		results.clear();
+		results.addAll(noDuplicates);
 		
 		return results;
 	}
@@ -140,6 +150,16 @@ public class User implements Serializable{
 				}
 			}
 		}
+		
+		Set<Photo> noDuplicatesFirst = new HashSet<>();
+		noDuplicatesFirst.addAll(first);
+		first.clear();
+		first.addAll(noDuplicatesFirst);
+		
+		Set<Photo> noDuplicatesSecond = new HashSet<>();
+		noDuplicatesSecond.addAll(second);
+		second.clear();
+		second.addAll(noDuplicatesSecond);
 		
 		for (Photo photo1:first) {
 			for (Photo photo2:second) {

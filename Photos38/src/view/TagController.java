@@ -51,6 +51,10 @@ public class TagController implements Serializable {
 	// user logged in
 	User user;
 	
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 		
 		// make obserable list of tags from selected photo tags
@@ -139,7 +143,6 @@ public class TagController implements Serializable {
 					mainStage.setScene(addTagScene);
 					
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});

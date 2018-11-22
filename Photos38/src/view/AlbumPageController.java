@@ -120,7 +120,6 @@ public class AlbumPageController implements Serializable{
 
 						DisplayPageController controller = loader.getController();
 						
-						System.out.println(selected);
 						controller.initializeVars(mainStage.getScene(), selected);
 						
 						controller.start(mainStage);
@@ -129,7 +128,6 @@ public class AlbumPageController implements Serializable{
 						mainStage.setScene(displayScene);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}		
 					
 				}
@@ -195,14 +193,15 @@ public class AlbumPageController implements Serializable{
 							selectedAlbum.addPhoto(newPhoto);
 							photos.add(newPhoto);	
 						} else {
-							// file isn't an image error
-							System.out.println("not a picture");
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("File Error");
+							alert.setHeaderText("File chosen isn't an image!");
+							alert.showAndWait();
 						}
 						
 											
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 					
 				}
@@ -269,7 +268,6 @@ public class AlbumPageController implements Serializable{
 					}
 									
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -294,7 +292,6 @@ public class AlbumPageController implements Serializable{
 					
 					
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -319,7 +316,6 @@ public class AlbumPageController implements Serializable{
 					
 					
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -345,7 +341,6 @@ public class AlbumPageController implements Serializable{
 					
 					
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});

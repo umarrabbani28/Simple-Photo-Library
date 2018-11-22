@@ -53,7 +53,12 @@ public class SearchPageController implements Serializable{
 	User user;
 	
 	Scene caller;
+	MainPageController callingController;
 
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 		
 		choice.getItems().add("And");
@@ -78,7 +83,10 @@ public class SearchPageController implements Serializable{
 				ArrayList<Photo> searchResults = new ArrayList<>();
 				
 				if (start == null || end == null) {
-					// error
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Date Error");
+					alert.setHeaderText("Dates must be entered!");
+					alert.showAndWait();
 				} else {	
 					// take user to search results page
 					try {
@@ -90,7 +98,7 @@ public class SearchPageController implements Serializable{
 						root = (AnchorPane) loader.load();
 
 						SearchResultsController controller = loader.getController();
-						controller.initializeVars(caller, user, searchResults);
+						controller.initializeVars(caller, user, searchResults, callingController);
 						
 						controller.start(mainStage);
 						Scene resultScene = new Scene(root,800,800);
@@ -116,16 +124,25 @@ public class SearchPageController implements Serializable{
 				String secondValue = value2.getText();
 				ArrayList<Photo> results = new ArrayList<>();
 				
-				if ((firstName != null && firstValue == null) || (firstName == null && firstValue != null)) {
-					// first tag incomplete error
+				if ((!firstName.equals("") && firstValue.equals("")) || (firstName.equals("") && !firstValue.equals(""))) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("Must complete the tag!");
+					alert.showAndWait();
 				}
-				if ((secondName != null && secondValue == null) || (secondName == null && secondValue != null)) {
-					// second tag incomplete error
+				if ((!secondName.equals("") && secondValue.equals("")) || (secondName.equals("") && !secondValue.equals(""))) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("Must complete the tag!");
+					alert.showAndWait();
 				}
-				if ((firstName == null && firstValue == null) && (secondName == null && secondValue == null)) {
-					// no tag error
+				if ((firstName.equals("") && firstValue.equals("")) && (secondName.equals("") && secondValue.equals(""))) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("Must select at least one tag!");
+					alert.showAndWait();
 				}
-				if ((firstName != null && firstValue != null) && (secondName == null && secondValue == null)) {
+				if ((!firstName.equals("") && !firstValue.equals("")) && (secondName.equals("")&& secondValue.equals(""))) {
 					// call searchBySingleTag(firstName,firstValue)
 					// take user to search results
 					try {
@@ -137,7 +154,7 @@ public class SearchPageController implements Serializable{
 						root = (AnchorPane) loader.load();
 
 						SearchResultsController controller = loader.getController();
-						controller.initializeVars(caller, user, results);
+						controller.initializeVars(caller, user, results, callingController);
 						
 						controller.start(mainStage);
 						Scene resultScene = new Scene(root,800,800);
@@ -148,7 +165,7 @@ public class SearchPageController implements Serializable{
 						e.printStackTrace();
 					}
 				}
-				if ((secondName != null && secondValue != null) && (firstName == null && firstValue == null)) {
+				if ((!secondName.equals("") && !secondValue.equals("")) && (firstName.equals("") && firstValue.equals(""))) {
 					// call searchBySingleTag(secondName,secondValue)
 					// take user to search results
 					try {
@@ -160,7 +177,7 @@ public class SearchPageController implements Serializable{
 						root = (AnchorPane) loader.load();
 
 						SearchResultsController controller = loader.getController();
-						controller.initializeVars(caller, user, results);
+						controller.initializeVars(caller, user, results, callingController);
 						
 						controller.start(mainStage);
 						Scene resultScene = new Scene(root,800,800);
@@ -172,7 +189,7 @@ public class SearchPageController implements Serializable{
 					}
 					
 				}
-				if ((firstName != null && firstValue != null) && (secondName != null && secondValue != null)) {
+				if ((!firstName.equals("") && !firstValue.equals("")) && (!secondName.equals("")&& !secondValue.equals(""))) {
 					// get choice
 					// call appropriate double tag method
 					// take user to search results
@@ -181,12 +198,15 @@ public class SearchPageController implements Serializable{
 						String userChoice = choice.getValue();
 						
 						if (userChoice == null) {
-							// error
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Tag Error");
+							alert.setHeaderText("Must select search type (And/Or)!");
+							alert.showAndWait();
 						}
 						
-						if (userChoice.equals("Or")) {
+						else if (userChoice.equals("Or")) {
 							results = user.searchByTwoTagsOr(firstName, firstValue, secondName, secondValue);
-						} if (userChoice.equals("And")) {
+						} else if (userChoice.equals("And")) {
 							results = user.searchByTwoTagsAnd(firstName, firstValue, secondName, secondValue);
 						}
 												
@@ -196,7 +216,7 @@ public class SearchPageController implements Serializable{
 						root = (AnchorPane) loader.load();
 
 						SearchResultsController controller = loader.getController();
-						controller.initializeVars(caller, user, results);
+						controller.initializeVars(caller, user, results,callingController);
 						
 						controller.start(mainStage);
 						Scene resultScene = new Scene(root,800,800);
@@ -213,8 +233,9 @@ public class SearchPageController implements Serializable{
 		
 	}
 	
-	public void initializeVars(Scene caller,User user) {
+	public void initializeVars(Scene caller,User user, MainPageController callingController) {
 		this.caller = caller;
 		this.user = user;
+		this.callingController = callingController;
 	}
 }

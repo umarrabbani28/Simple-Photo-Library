@@ -22,14 +22,14 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="144.0" layoutY="141.0" prefHeight="464.0" prefWidth="541.0">
+      <TableView fx:id="tableView" layoutX="9.0" layoutY="141.0" prefHeight="464.0" prefWidth="785.0">
          <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="222.5" text="Album Name" />
-            <TableColumn fx:id="countColumn" prefWidth="131.0" text="# of Photos" />
-            <TableColumn fx:id="dateColumn" prefWidth="186.5" text="Date Range">
+            <TableColumn fx:id="nameColumn" prefWidth="186.5" text="Album Name" />
+            <TableColumn fx:id="countColumn" prefWidth="135.5" text="# of Photos" />
+            <TableColumn fx:id="dateColumn" prefWidth="434.5" text="Date Range">
                <columns>
-                  <TableColumn fx:id="from" prefWidth="104.0" text="From" />
-                  <TableColumn fx:id="to" prefWidth="102.5" text="To" />
+                  <TableColumn fx:id="from" prefWidth="230.0" text="From" />
+                  <TableColumn fx:id="to" prefWidth="230.0" text="To" />
                </columns>
             </TableColumn>
          </columns>

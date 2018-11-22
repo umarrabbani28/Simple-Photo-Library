@@ -21,13 +21,11 @@ public class Photo implements Serializable{
 	String dateString;
 	String caption;
 	
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-
 	ArrayList<Album> albums;
 	ArrayList<Tag> tags;
 	
 	public Photo(LocalDateTime date,String location,Album album,String caption) {
-		this.location = location; this.date = date; this.dateString = this.date.format(formatter); this.caption = caption;
+		this.location = location; this.date = date; this.dateString = this.date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a")); this.caption = caption;
 		albums = new ArrayList<>();
 		tags = new ArrayList<>();
 		albums.add(album);
@@ -76,11 +74,9 @@ public class Photo implements Serializable{
 	}
 	
 	public void moveTo(Album moveTo,Album moveFrom) {
-		System.out.println("before: "+moveFrom);
 		this.albums.remove(moveFrom);
 		this.albums.add(moveTo);
 		moveTo.addPhoto(this);
-		System.out.println("after: "+moveFrom);
 
 		moveFrom.deletePhoto(this);
 	}

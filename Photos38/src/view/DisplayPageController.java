@@ -46,6 +46,10 @@ public class DisplayPageController {
 	DisplayPageController thisController = this;
 	User user;
 
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {
 		
 		ArrayList<Tag> userTags = selectedPhoto.getTags();
@@ -73,6 +77,13 @@ public class DisplayPageController {
 			
 		});
 	}
+	
+	/**
+	 * intializes the variables used in the controller
+	 * @param caller This is the calling scene
+	 * @param selectedPhoto This is the photo that is used throughout the controller
+	 * @return void 
+	 */
 	public void initializeVars(Scene caller,Photo selectedPhoto) {
 		this.caller = caller; this.selectedPhoto = selectedPhoto;
 	}

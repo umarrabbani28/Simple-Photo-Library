@@ -40,6 +40,11 @@ public class PresentationController {
 	PresentationController thisController = this;
 	User user;
 	Album selectedAlbum;
+	
+	/**
+	 * starts the controller
+	 * @return mainStage this is the main stage of the application
+	 */
 	public void start(Stage mainStage) {		
 		image.setImage(selectedPhoto.getImage());
 		

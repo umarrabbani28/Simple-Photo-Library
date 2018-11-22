@@ -34,6 +34,7 @@ public class AddTagController implements Serializable{
 	@FXML Button addValue;
 	@FXML Button add;
 	@FXML Button cancel;
+	@FXML Button done;
 	@FXML ComboBox<String> comboBox;
 	@FXML ListView<String> listView;
 	@FXML Label nameLabel;
@@ -95,12 +96,16 @@ public class AddTagController implements Serializable{
 			@Override
 			public void handle(MouseEvent event) {
 				if (selectedName == null) {
-					// tell user to first select a name
-					error2.setText("Select a tag name first!");
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("Select a tag name first!");
+					alert.showAndWait();
 					
 				} else if (Tag.isASingleValueName(selectedName) && numValues==1) {
-					// tell user only one value for the selected name
-					error2.setText("Only one value allowed for a "+selectedName+" tag!");
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("Chosen tag can only have 1 value!");
+					alert.showAndWait();
 				} else {
 					TextInputDialog getNewValue = new TextInputDialog();
 					getNewValue.setHeaderText("Enter the value");
@@ -154,20 +159,24 @@ public class AddTagController implements Serializable{
 		cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				callingController.refreshList();
 				mainStage.setScene(caller);
 			}
 		});
+
 		
-		add.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		done.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (selectedName == null) {
-					// tell user a tag name must be selected
-					error.setText("No tag name selected!");
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("A tag name must be chosen!");
+					alert.showAndWait();
 				} else if (values.size() == 0) {
-					// tell user a value must be added
-					error.setText("No tag value selected!");
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Tag Error");
+					alert.setHeaderText("A tag value must be chosen!");
+					alert.showAndWait();
 				} else {
 					Tag newTag;
 					if (Tag.isASingleValueName(selectedName)) {
