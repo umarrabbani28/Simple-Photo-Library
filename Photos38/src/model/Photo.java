@@ -2,6 +2,9 @@ package model;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.scene.image.Image;
@@ -14,14 +17,20 @@ public class Photo implements Serializable{
 
 	Image image;
 	String location;
-	Date date;
+	LocalDateTime date;
+	String dateString;
 	String caption;
 	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+
 	ArrayList<Album> albums;
 	ArrayList<Tag> tags;
 	
-	public Photo(Image image,Date date,String location,Album album,String caption) {
-		this.image = image; this.location = location; this.date = date; this.albums.set(0, album); this.caption = caption;
+	public Photo(LocalDateTime date,String location,Album album,String caption) {
+		this.location = location; this.date = date; this.dateString = this.date.format(formatter); this.caption = caption;
+		albums = new ArrayList<>();
+		tags = new ArrayList<>();
+		albums.add(album);
 	}
 	
 	public boolean addTag(Tag tag) {
@@ -35,6 +44,7 @@ public class Photo implements Serializable{
 		tags.remove(tag);
 	}
 	boolean isTagRepeating(Tag tag) {
+
 		for (Tag item:tags) {
 			if (tag.isSingleValue && item.isSingleValue && tag.getName().equals(item.getName()) && tag.getSingleValue().equals(item.getSingleValue())) {
 				return true;
@@ -48,16 +58,17 @@ public class Photo implements Serializable{
 	
 	// getters
 	public ArrayList<Album> getAlbums() { return albums;}
-	public Date getDate() { return date;}
+	public LocalDateTime getDate() { return date;}
+	public String getDateString() {return dateString;}
 	public String getCaption() {return caption;}
 	public String getLocation() {return location;}
 	public ArrayList<Tag> getTags(){return tags;}
-	public Image getImage() {return image;}
+	public Image getImage() {return new Image(location);}
 	
 	//setters
 	public void reCaption(String caption) {
 		this.caption = caption;
-	}
+	};
 	
 	public void copyTo(Album album) {
 		this.albums.add(album);
@@ -65,11 +76,13 @@ public class Photo implements Serializable{
 	}
 	
 	public void moveTo(Album moveTo,Album moveFrom) {
+		System.out.println("before: "+moveFrom);
 		this.albums.remove(moveFrom);
 		this.albums.add(moveTo);
 		moveTo.addPhoto(this);
+		System.out.println("after: "+moveFrom);
+
 		moveFrom.deletePhoto(this);
-		
 	}
 	
 	

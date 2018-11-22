@@ -17,7 +17,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -31,7 +34,9 @@ public class TagController implements Serializable {
 	@FXML Button back;
 	@FXML Button add;
 	@FXML Button delete;
-	@FXML ListView<Tag> listView;
+	@FXML TableView<Tag> tableView;
+	@FXML TableColumn<Tag,String> nameColumn;
+	@FXML TableColumn<Tag,String> valueColumn;
 	
 	// photo who's tags user is looking at
 	Photo selectedPhoto;
@@ -48,16 +53,23 @@ public class TagController implements Serializable {
 	
 	public void start(Stage mainStage) {
 		
-		listView.setStyle("-fx-font-size: 1.5em ;");
-		
 		// make obserable list of tags from selected photo tags
 		// set listview to observable list
+		
+		
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		valueColumn.setCellValueFactory(new PropertyValueFactory<>("values"));
+
+		tableView.setItems(tagList);
+		tableView.setStyle("-fx-cell-size: 50px;");
+		tableView.setStyle("-fx-font-size: 1.5em;");
+		
 		ArrayList<Tag> photoTags = selectedPhoto.getTags();	
 		tagList = FXCollections.observableArrayList();
 		if (photoTags != null)
 			tagList.setAll(photoTags);
 		
-		listView.setItems(tagList);
+		tableView.setItems(tagList);
 		
 		// takes user back to album page
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -73,17 +85,17 @@ public class TagController implements Serializable {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if (listView.getSelectionModel().getSelectedItem() != null) {
+				if (tableView.getSelectionModel().getSelectedItem() != null) {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Delete");
-					alert.setHeaderText("Delete " + listView.getSelectionModel().getSelectedItem().getName() + " tag");
+					alert.setHeaderText("Delete " + tableView.getSelectionModel().getSelectedItem().getName() + " tag");
 					alert.setContentText("Are you sure?");
 
 					Optional<ButtonType> confirmation = alert.showAndWait();
 					if (confirmation.get() == ButtonType.OK) {
-						int index = listView.getSelectionModel().getSelectedIndex();
+						int index = tableView.getSelectionModel().getSelectedIndex();
 						if (index == 0) {
-							listView.getSelectionModel().select(1);
+							tableView.getSelectionModel().select(1);
 						}
 						
 						// delete tag from photo
@@ -99,7 +111,7 @@ public class TagController implements Serializable {
 						} else if (index == tagList.size()) {
 							// listView.getSelectionModel().select(listView.getSelectionModel().getSelectedIndex());
 						} else {
-							listView.getSelectionModel().select(listView.getSelectionModel().getSelectedIndex() + 1);
+							tableView.getSelectionModel().select(tableView.getSelectionModel().getSelectedIndex() + 1);
 
 						}
 					}
@@ -125,7 +137,6 @@ public class TagController implements Serializable {
 					Scene addTagScene = new Scene(root,800,800);
 					
 					mainStage.setScene(addTagScene);
-					refreshList();
 					
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -135,8 +146,12 @@ public class TagController implements Serializable {
 	}
 	
 	public void refreshList() {
-		tagList = FXCollections.observableArrayList(selectedPhoto.getTags());
-		listView.setItems(tagList);
+		ArrayList<Tag> photoTags = selectedPhoto.getTags();	
+		tagList = FXCollections.observableArrayList();
+		if (photoTags != null)
+			tagList.setAll(photoTags);
+		
+		tableView.setItems(tagList);
 	}
 
 	public void initializeVars(Scene caller,User user,Photo selectedPhoto) {

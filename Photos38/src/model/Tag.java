@@ -16,11 +16,13 @@ public class Tag implements Serializable{
 	
 	public Tag(String name, ArrayList<String> values) {
 		this.name = name; this.values = values; this.isSingleValue = false;
-		values = new ArrayList<>();
+		
 	}
 	
 	public Tag(String name, String singleValue) {
+		values = new ArrayList<>();
 		this.name = name; this.singleValue = singleValue; this.isSingleValue = true;
+		this.values.add(singleValue);
 	}
 	//getters
 	public String getName() {return name;}

@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,47 +13,67 @@ public class Album implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	String name;
-	Date earliest;
-	Date latest;
+	LocalDateTime earliest;
+	String earliestString;
+	LocalDateTime latest;
+	String latestString;
 	int photoCount;
 	User owner;
 	ArrayList<Photo> photos;
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 	
 	public Album(String name, User owner) {
 		this.name = name; this.owner = owner;
+		photos = new ArrayList<>();
 	}
 	
 	public void addPhoto(Photo photo) {
-		Date photoDate = photo.getDate();
-		if (photoDate.before(earliest) || earliest == null) {
+		LocalDateTime photoDate = photo.getDate();
+		if (earliest == null) {
 			earliest = photoDate;
+			earliestString = earliest.format(formatter);
 		}
-		if (photoDate.after(latest) || latest == null) {
+		else if (photoDate.isBefore(earliest)) {
+			earliest = photoDate;
+			earliestString = earliest.format(formatter);
+		}
+		if (latest == null) {
 			latest = photoDate;
+			latestString = latest.format(formatter);
 		}
-		
+		else if (photoDate.isAfter(latest) || latest == null) {
+			latest = photoDate;
+			latestString = latest.format(formatter);
+		}
+
 		photos.add(photo);
 		photoCount++;
 	}
 	
 	public void deletePhoto(Photo photo) {
-		Date photoDate = photo.getDate();
+		LocalDateTime photoDate = photo.getDate();
 		if (photos.size() == 1) {
 			earliest = null;
 			latest = null;
 		} else if (photoDate == earliest) {
 			photos.remove(photo);
 			earliest = photos.get(0).date;
+			earliestString = earliest.format(formatter);
 			for (Photo item:photos) {
-				if (item.date.before(earliest))
+				if (item.date.isBefore(earliest)) {
 					earliest = item.date;
+					earliestString = earliest.format(formatter);
+				}
 			}
 		} else if (photoDate == latest) {
 			photos.remove(photo);
 			latest = photos.get(0).date;
+			latestString = latest.format(formatter);
 			for (Photo item:photos) {
-				if (item.date.after(latest))
+				if (item.date.isAfter(latest)) {
 					latest = item.date;
+					latestString = latest.format(formatter);
+				}
 			}
 		}
 		
@@ -63,12 +86,20 @@ public class Album implements Serializable{
 		return name;
 	}
 	
-	public Date getEarliest() {
+	public LocalDateTime getEarliest() {
 		return earliest;
 	}
 	
-	public Date latest() {
+	public String  getEarliestString() {
+		return earliestString;
+	}
+	
+	public LocalDateTime getLatest() {
 		return latest;
+	}
+	
+	public String getLatestString() {
+		return latestString;
 	}
 	
 	public int getPhotoCount() {
@@ -122,7 +153,7 @@ public class Album implements Serializable{
 	public String toString() {
 		if (earliest == null)
 			return name+"     "+photoCount+"     ";
-		return name+"     "+photoCount+"     "+earliest.toString()+" - "+latest.toString();
+		return name+"     "+photoCount+"     "+earliestString+" - "+latestString;
 				
 	}
 	

@@ -93,7 +93,7 @@ public class Session implements Serializable{
 		LoginController controller = loader.getController();
 		
 		controller.start(stage);
-		Scene searchPageScene = new Scene(root,400,400);
+		Scene searchPageScene = new Scene(root,800,800);
 		
 		stage.setScene(searchPageScene);
 	}

@@ -26,7 +26,7 @@ public class PresentationController {
 
 	@FXML Button back;
 	@FXML Button next;
-	@FXML Button previous;
+	@FXML Button prev;
 	@FXML ImageView image;
 	// photo who's tags user is looking at
 	Photo selectedPhoto;
@@ -42,6 +42,7 @@ public class PresentationController {
 	Album selectedAlbum;
 	public void start(Stage mainStage) {		
 		image.setImage(selectedPhoto.getImage());
+		
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -58,7 +59,7 @@ public class PresentationController {
 				image.setImage(selectedPhoto.getImage());
 			}
 		});
-		previous.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		prev.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				selectedPhoto = selectedAlbum.getPrevPhoto(selectedPhoto);

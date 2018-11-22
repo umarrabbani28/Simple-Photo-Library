@@ -14,11 +14,7 @@
          <font>
             <Font size="24.0" />
          </font></Label>
-      <Button id="delete" fx:id="cancel" layoutX="579.0" layoutY="691.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Cancel">
-         <font>
-            <Font size="24.0" />
-         </font></Button>
-      <Button id="add" fx:id="add" layoutX="122.0" layoutY="691.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Confirm">
+      <Button id="delete" fx:id="cancel" layoutX="15.0" layoutY="19.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="123.0" text="Back">
          <font>
             <Font size="24.0" />
          </font></Button>

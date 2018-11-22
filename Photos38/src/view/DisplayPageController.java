@@ -2,8 +2,8 @@ package view;
 
 import model.*;
 
-import java.awt.Label;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -15,7 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +29,9 @@ import javafx.stage.Stage;
 public class DisplayPageController {
 
 	@FXML Button back;
-	@FXML ListView<Tag> listView;
+	@FXML TableView<Tag> tableView;
+	@FXML TableColumn<Tag,String> nameColumn;
+	@FXML TableColumn<Tag,String> valueColumn;
 	@FXML Label caption;
 	@FXML Label datetime;
 	@FXML ImageView image;
@@ -35,19 +41,28 @@ public class DisplayPageController {
 	//list of tags
 	ObservableList<Tag> tagList;
 	
-	
-	
 	// calling scene
 	Scene caller;
 	DisplayPageController thisController = this;
 	User user;
-	Album selectedAlbum;
+
 	public void start(Stage mainStage) {
-		tagList = FXCollections.observableArrayList(selectedPhoto.getTags());
 		
-		listView.setItems(tagList);
+		ArrayList<Tag> userTags = selectedPhoto.getTags();
+		tagList = FXCollections.observableArrayList();
+		if (userTags != null) {
+			tagList.setAll(userTags);
+		}
+		
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		valueColumn.setCellValueFactory(new PropertyValueFactory<>("values"));
+
+		tableView.setItems(tagList);
+		tableView.setStyle("-fx-cell-size: 50px;");
+		tableView.setStyle("-fx-font-size: 1.5em;");
+		
 		caption.setText(selectedPhoto.getCaption());
-		caption.setText(selectedPhoto.getCaption());
+		datetime.setText(selectedPhoto.getDateString());
 		image.setImage(selectedPhoto.getImage());
 		back.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -58,8 +73,8 @@ public class DisplayPageController {
 			
 		});
 	}
-	public void intializeVars(Scene caller,Photo selectedPhoto, Album selectedAlbum) {
-		this.caller = caller; this.selectedPhoto = selectedPhoto; this.selectedAlbum = selectedAlbum;
+	public void initializeVars(Scene caller,Photo selectedPhoto) {
+		this.caller = caller; this.selectedPhoto = selectedPhoto;
 	}
 
 }

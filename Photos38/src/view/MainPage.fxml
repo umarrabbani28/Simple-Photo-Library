@@ -37,14 +37,14 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <TableView fx:id="tableView" layoutX="134.0" layoutY="131.0" prefHeight="464.0" prefWidth="541.0">
+      <TableView fx:id="tableView" layoutX="32.0" layoutY="131.0" prefHeight="464.0" prefWidth="750.0">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="222.5" text="Album Name" />
-          <TableColumn fx:id="countColumn" prefWidth="131.0" text="# of Photos" />
-            <TableColumn fx:id="dateColumn" prefWidth="186.5" text="Date Range">
+          <TableColumn fx:id="nameColumn" prefWidth="236.5" text="Album Name" />
+          <TableColumn fx:id="countColumn" prefWidth="123.5" text="# of Photos" />
+            <TableColumn fx:id="dateColumn" prefWidth="383.0" text="Date Range">
                <columns>
-                  <TableColumn fx:id="from" prefWidth="104.0" text="From" />
-                  <TableColumn fx:id="to" prefWidth="102.5" text="To" />
+                  <TableColumn fx:id="from" prefWidth="200.0" text="From" />
+                  <TableColumn fx:id="to" prefWidth="200.0" text="To" />
                </columns>
             </TableColumn>
         </columns>

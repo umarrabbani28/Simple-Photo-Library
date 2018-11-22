@@ -82,8 +82,8 @@ public class AdminController implements Serializable{
 				User selected = listView.getSelectionModel().getSelectedItem();
 				if (selected != null) {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Delete Value");
-					alert.setHeaderText("Delete value:" + listView.getSelectionModel().getSelectedItem());
+					alert.setTitle("Delete");
+					alert.setHeaderText("Delete user:" + listView.getSelectionModel().getSelectedItem().getUsername());
 					alert.setContentText("Are you sure?");
 
 					Optional<ButtonType> confirmation = alert.showAndWait();

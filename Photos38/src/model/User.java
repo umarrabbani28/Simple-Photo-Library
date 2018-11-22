@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User implements Serializable{
 	
@@ -21,15 +25,15 @@ public class User implements Serializable{
 		albums = new ArrayList<>();
 	}
 	
-	public boolean createAlbum(String albumName) {
+	public Album createAlbum(String albumName) {
 		if (!albumNameExists(albumName)) {
 			Album newAlbum = new Album(albumName, this);
 			albums.add(newAlbum);
 			albumCount++;
-			return true;
+			return newAlbum;
 		}
 			
-		return false;
+		return null;
 	}
 	
 	public boolean rename(Album album, String name) {
@@ -77,6 +81,107 @@ public class User implements Serializable{
 				return true;
 		}
 		return false;
+	}
+	
+	public ArrayList<Photo> searchByDate(LocalDateTime start,LocalDateTime end){
+		ArrayList<Photo> results = new ArrayList<>();
+		for (Album album:albums) {
+			for (Photo photo:album.getPhotos()) {
+				if ((photo.getDate().isAfter(start) || photo.getDate().equals(start)) && (photo.getDate().isBefore(end))){
+					results.add(photo);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	public ArrayList<Photo> searchBySingleTag(String name, String value){
+		ArrayList<Photo> results = new ArrayList<>();
+		for (Album album:albums) {
+			for (Photo photo:album.getPhotos()) {
+				for (Tag tag:photo.getTags()) {
+					if (tag.getName().equals(name)) {
+						for (String tagValue:tag.getValues()) {
+							if (tagValue.equals(value)) {
+								results.add(photo);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	public ArrayList<Photo> searchByTwoTagsAnd(String name1,String value1,String name2,String value2){
+		ArrayList<Photo> results = new ArrayList<>();
+		ArrayList<Photo> first = new ArrayList<>();
+		ArrayList<Photo> second = new ArrayList<>();
+		
+		for (Album album:albums) {
+			for (Photo photo:album.getPhotos()) {
+				for (Tag tag:photo.getTags()) {
+					if (tag.getName().equals(name1)) {
+						for (String tagValue:tag.getValues()) {
+							if (tagValue.equals(value1)) {
+								first.add(photo);
+							}
+						}
+					}
+					if (tag.getName().equals(name2)) {
+						for (String tagValue:tag.getValues()) {
+							if (tagValue.equals(value2)) {
+								second.add(photo);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		for (Photo photo1:first) {
+			for (Photo photo2:second) {
+				if (photo1.equals(photo2)) {
+					results.add(photo1);
+				}
+			}
+		}
+	
+		return results;
+	}
+	
+	public ArrayList<Photo> searchByTwoTagsOr(String name1,String value1,String name2,String value2){
+		ArrayList<Photo> results = new ArrayList<>();
+		
+		for (Album album:albums) {
+			for (Photo photo:album.getPhotos()) {
+				for (Tag tag:photo.getTags()) {
+					if (tag.getName().equals(name1)) {
+						for (String tagValue:tag.getValues()) {
+							if (tagValue.equals(value1)) {
+								results.add(photo);
+							}
+						}
+					}
+					if (tag.getName().equals(name2)) {
+						for (String tagValue:tag.getValues()) {
+							if (tagValue.equals(value2)) {
+								results.add(photo);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		Set<Photo> noDuplicates = new HashSet<>();
+		noDuplicates.addAll(results);
+		results.clear();
+		results.addAll(noDuplicates);
+		
+		return results;
 	}
 	
 	public String toString() {

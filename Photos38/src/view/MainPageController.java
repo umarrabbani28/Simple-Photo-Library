@@ -42,6 +42,7 @@ public class MainPageController implements Serializable{
 	User user;
 	ObservableList<Album> albums;
 	Session session;
+	MainPageController thisController = this;
 	
 	public void start(Stage mainStage) {
 				
@@ -50,8 +51,8 @@ public class MainPageController implements Serializable{
 		
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		countColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
-		from.setCellValueFactory(new PropertyValueFactory<>("earliest"));
-		to.setCellValueFactory(new PropertyValueFactory<>("latest"));
+		from.setCellValueFactory(new PropertyValueFactory<>("earliestString"));
+		to.setCellValueFactory(new PropertyValueFactory<>("latestString"));
 		
 		session = application.Main.session;
 		ArrayList<Album> userAlbums = user.getAlbums();
@@ -74,7 +75,7 @@ public class MainPageController implements Serializable{
 						root = (AnchorPane) loader.load();
 
 						AlbumPageController controller = loader.getController();
-						controller.initializeVars(mainStage.getScene(), user, selected);
+						controller.initializeVars(mainStage.getScene(), user, selected,thisController);
 						
 						controller.start(mainStage);
 						Scene searchPageScene = new Scene(root,800,800);
@@ -149,10 +150,10 @@ public class MainPageController implements Serializable{
 					root = (AnchorPane) loader.load();
 
 					SearchPageController controller = loader.getController();
-				//	controller.initializeVars(mainStage.getScene(), user, selectedPhoto,thisController);
+					controller.initializeVars(mainStage.getScene(), user);
 					
 					controller.start(mainStage);
-					Scene searchPageScene = new Scene(root,400,400);
+					Scene searchPageScene = new Scene(root,800,800);
 					
 					mainStage.setScene(searchPageScene);
 				} catch (IOException e) {
@@ -191,8 +192,8 @@ public class MainPageController implements Serializable{
 				Album selected = tableView.getSelectionModel().getSelectedItem();
 				if (selected != null) {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Delete Value");
-					alert.setHeaderText("Delete value:" + tableView.getSelectionModel().getSelectedItem());
+					alert.setTitle("Delete");
+					alert.setHeaderText("Delete album: " + tableView.getSelectionModel().getSelectedItem().getName());
 					alert.setContentText("Are you sure?");
 
 					Optional<ButtonType> confirmation = alert.showAndWait();
@@ -230,8 +231,21 @@ public class MainPageController implements Serializable{
 	}
 	
 	public void refresh() {
-		albums.setAll(user.getAlbums());
+		System.out.println("called");
+		ArrayList<Album> userAlbums = user.getAlbums();
+		albums = FXCollections.observableArrayList();
+		if (userAlbums != null)
+			albums.setAll(userAlbums);
+		
 		tableView.setItems(albums);
+		System.out.println(userAlbums);
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		countColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
+		from.setCellValueFactory(new PropertyValueFactory<>("earliestString"));
+		to.setCellValueFactory(new PropertyValueFactory<>("latestString"));
+		
+		tableView.refresh();
+
 	}
 	
 }

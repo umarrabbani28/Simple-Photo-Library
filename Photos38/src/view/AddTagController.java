@@ -85,6 +85,7 @@ public class AddTagController implements Serializable{
 					values.clear();
 					numValues = 0;
 					
+					comboBox.setPromptText(selectedName);
 					nameLabel.setText(selectedName);
 				}
 			}
@@ -120,8 +121,7 @@ public class AddTagController implements Serializable{
 			public void handle(MouseEvent event) {
 				if (listView.getSelectionModel().getSelectedItem() != null) {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Delete Value");
-					alert.setHeaderText("Delete value:" + listView.getSelectionModel().getSelectedItem());
+					alert.setTitle("Delete");
 					alert.setContentText("Are you sure?");
 
 					Optional<ButtonType> confirmation = alert.showAndWait();
@@ -154,6 +154,7 @@ public class AddTagController implements Serializable{
 		cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				callingController.refreshList();
 				mainStage.setScene(caller);
 			}
 		});
